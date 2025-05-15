@@ -2,6 +2,8 @@
 
 A web-based application for tracking and scoring Army Combat Fitness Test (ACFT) performance.
 
+**[🔗 View Live Application](https://baloo8721.github.io/PT-test/)**
+
 ## Features
 
 - Track performance across all five ACFT events:
