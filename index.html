@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Army Fitness Test (AFT) Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -13,21 +16,34 @@
         <!-- Header -->
         <header>
             <h1>Army Fitness Test Tracker</h1>
-            <div class="user-profile">
-                <select id="standardType">
-                    <option value="combat">Combat MOS</option>
-                    <option value="general">General MOS</option>
-                </select>
-                <select id="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-                <input type="number" id="bodyWeight" placeholder="Body Weight (lbs)" min="100" max="300">
-            </div>
         </header>
 
         <!-- Main Content -->
         <main>
+            <!-- User Controls -->
+            <div class="user-controls">
+                <div class="toggle-container">
+                    <label class="toggle-label">MOS</label>
+                    <div class="toggle-switch" id="mosToggle">
+                        <div class="toggle-option active" data-value="general">General</div>
+                        <div class="toggle-option" data-value="combat">Combat</div>
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="toggle-container">
+                    <label class="toggle-label">Gender</label>
+                    <div class="toggle-switch" id="genderToggle">
+                        <div class="toggle-option active" data-value="male">♂</div>
+                        <div class="toggle-option" data-value="female">♀</div>
+                        <div class="toggle-slider"></div>
+                    </div>
+                </div>
+                <div class="weight-input">
+                    <label class="toggle-label">Weight</label>
+                    <input type="number" id="bodyWeight" placeholder="Weight (lbs)" min="100" max="300">
+                </div>
+            </div>
+            
             <!-- Dashboard -->
             <section class="dashboard">
                 <h2>Your AFT Progress</h2>
@@ -41,460 +57,134 @@
 
                 <div class="event-scores">
                     <div class="event-card" id="mdlScore">
-                        <h3>Deadlift</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 0%"></div>
+                        <h3>3-Rep Max Deadlift (150-340 lbs)</h3>
+                        <div class="card-content">
+                            <div class="input-display">
+                                <input type="number" class="card-input" id="mdlCard" placeholder="Enter weight (lbs)" data-options='["140 lbs (Min - General M)", "120 lbs (Min - General F)", "150 lbs (Min - Combat)", "340 lbs (Max - Combat)"]'>
+                            </div>
+                            <div class="progress-bar" style="display: none;">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                            <span class="score">0/100</span>
                         </div>
-                        <span class="score">0/100</span>
                     </div>
                     <div class="event-card" id="hrpScore">
-                        <h3>Hand-Release Push-ups</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 0%"></div>
+                        <h3>Hand-Release Push-ups (15-60 reps)</h3>
+                        <div class="card-content">
+                            <div class="input-display">
+                                <input type="number" class="card-input" id="hrpCard" placeholder="Enter reps">
+                            </div>
+                            <div class="progress-bar" style="display: none;">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                            <span class="score">0/100</span>
                         </div>
-                        <span class="score">0/100</span>
                     </div>
                     <div class="event-card" id="sdcScore">
-                        <h3>Sprint-Drag-Carry</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 0%"></div>
+                        <h3>Sprint-Drag-Carry (2:28-1:30)</h3>
+                        <div class="card-content">
+                            <div class="input-display">
+                                <input type="text" class="card-input" id="sdcCard" placeholder="mm:ss" readonly>
+                                <div class="time-picker">
+                                    <div class="time-column minutes">
+                                        <div class="time-scroll">
+                                            <div class="time-option">00</div>
+                                            <div class="time-option">01</div>
+                                            <div class="time-option">02</div>
+                                            <div class="time-option">03</div>
+                                            <div class="time-option">04</div>
+                                            <div class="time-option">05</div>
+                                        </div>
+                                    </div>
+                                    <div class="time-column seconds">
+                                        <div class="time-scroll">
+                                            <div class="time-option">00</div>
+                                            <div class="time-option">15</div>
+                                            <div class="time-option">30</div>
+                                            <div class="time-option">45</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-bar" style="display: none;">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                            <span class="score">0/100</span>
                         </div>
-                        <span class="score">0/100</span>
                     </div>
                     <div class="event-card" id="plkScore">
-                        <h3>Plank</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 0%"></div>
+                        <h3>Plank (2:00-4:00)</h3>
+                        <div class="card-content">
+                            <div class="input-display">
+                                <input type="text" class="card-input" id="plkCard" placeholder="mm:ss" readonly>
+                                <div class="time-picker">
+                                    <div class="time-column minutes">
+                                        <div class="time-scroll">
+                                            <div class="time-option">00</div>
+                                            <div class="time-option">01</div>
+                                            <div class="time-option">02</div>
+                                            <div class="time-option">03</div>
+                                            <div class="time-option">04</div>
+                                            <div class="time-option">05</div>
+                                        </div>
+                                    </div>
+                                    <div class="time-column seconds">
+                                        <div class="time-scroll">
+                                            <div class="time-option">00</div>
+                                            <div class="time-option">15</div>
+                                            <div class="time-option">30</div>
+                                            <div class="time-option">45</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="progress-bar" style="display: none;">
+                                <div class="progress" style="width: 0%"></div>
+                            </div>
+                            <span class="score">0/100</span>
                         </div>
-                        <span class="score">0/100</span>
                     </div>
                     <div class="event-card" id="runScore">
-                        <h3>2-Mile Run</h3>
-                        <div class="progress-bar">
-                            <div class="progress" style="width: 0%"></div>
-                        </div>
-                        <span class="score">0/100</span>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Workout Logger -->
-            <section class="workout-logger">
-                <h2>Log Your AFT</h2>
-                <div class="input-group">
-                    <label for="deadlift">3-Rep Max Deadlift Weight (lbs)</label>
-                    <input type="number" id="deadlift" placeholder="e.g., 150" min="0"
-                        data-options='["140 lbs (Min - General M)", "120 lbs (Min - General F)", "150 lbs (Min - Combat)", "340 lbs (Max - Combat)"]'>
-                </div>
-                <div class="input-group">
-                    <label for="hrpReps">Hand-Release Push-ups (minimum 10 reps)</label>
-                    <input type="number" id="hrpReps" min="5" max="100" placeholder="Enter reps" data-options='[
-                        "5 reps",
-                        "6 reps",
-                        "7 reps",
-                        "8 reps",
-                        "9 reps",
-                        "10 reps (General MOS Minimum)",
-                        "11 reps",
-                        "12 reps",
-                        "13 reps",
-                        "14 reps",
-                        "15 reps (Combat MOS Minimum)",
-                        "16 reps",
-                        "17 reps",
-                        "18 reps",
-                        "19 reps",
-                        "20 reps",
-                        "21 reps",
-                        "22 reps",
-                        "23 reps",
-                        "24 reps",
-                        "25 reps",
-                        "26 reps",
-                        "27 reps",
-                        "28 reps",
-                        "29 reps",
-                        "30 reps",
-                        "31 reps",
-                        "32 reps",
-                        "33 reps",
-                        "34 reps",
-                        "35 reps",
-                        "36 reps",
-                        "37 reps",
-                        "38 reps",
-                        "39 reps",
-                        "40 reps (Female Maximum)",
-                        "41 reps",
-                        "42 reps",
-                        "43 reps",
-                        "44 reps",
-                        "45 reps",
-                        "46 reps",
-                        "47 reps",
-                        "48 reps",
-                        "49 reps",
-                        "50 reps",
-                        "51 reps",
-                        "52 reps",
-                        "53 reps",
-                        "54 reps",
-                        "55 reps",
-                        "56 reps",
-                        "57 reps",
-                        "58 reps",
-                        "59 reps",
-                        "60 reps (Male Maximum)",
-                        "61 reps",
-                        "62 reps",
-                        "63 reps",
-                        "64 reps",
-                        "65 reps",
-                        "66 reps",
-                        "67 reps",
-                        "68 reps",
-                        "69 reps",
-                        "70 reps",
-                        "71 reps",
-                        "72 reps",
-                        "73 reps",
-                        "74 reps",
-                        "75 reps",
-                        "76 reps",
-                        "77 reps",
-                        "78 reps",
-                        "79 reps",
-                        "80 reps",
-                        "81 reps",
-                        "82 reps",
-                        "83 reps",
-                        "84 reps",
-                        "85 reps",
-                        "86 reps",
-                        "87 reps",
-                        "88 reps",
-                        "89 reps",
-                        "90 reps",
-                        "91 reps",
-                        "92 reps",
-                        "93 reps",
-                        "94 reps",
-                        "95 reps",
-                        "96 reps",
-                        "97 reps",
-                        "98 reps",
-                        "99 reps",
-                        "100 reps"
-                    ]'>
-                </div>
-                <div class="input-group">
-                    <label for="sdcTime">Sprint-Drag-Carry (minimum 3:00)</label>
-                    <input type="text" id="sdcTime" placeholder="mm:ss" readonly>
-                    <div class="time-picker">
-                        <div class="time-column minutes">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
+                        <h3>2-Mile Run (18:30-13:00)</h3>
+                        <div class="card-content">
+                            <div class="input-display">
+                                <input type="text" class="card-input" id="runCard" placeholder="mm:ss" readonly>
+                                <div class="time-picker">
+                                    <div class="time-column minutes">
+                                        <div class="time-scroll">
+                                            <div class="time-option">10</div>
+                                            <div class="time-option">11</div>
+                                            <div class="time-option">12</div>
+                                            <div class="time-option">13</div>
+                                            <div class="time-option">14</div>
+                                            <div class="time-option">15</div>
+                                            <div class="time-option">16</div>
+                                            <div class="time-option">17</div>
+                                            <div class="time-option">18</div>
+                                            <div class="time-option">19</div>
+                                            <div class="time-option">20</div>
+                                        </div>
+                                    </div>
+                                    <div class="time-column seconds">
+                                        <div class="time-scroll">
+                                            <div class="time-option">00</div>
+                                            <div class="time-option">15</div>
+                                            <div class="time-option">30</div>
+                                            <div class="time-option">45</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="time-separator">:</div>
-                        <div class="time-column seconds">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
-                                <div class="time-option">11</div>
-                                <div class="time-option">12</div>
-                                <div class="time-option">13</div>
-                                <div class="time-option">14</div>
-                                <div class="time-option">15</div>
-                                <div class="time-option">16</div>
-                                <div class="time-option">17</div>
-                                <div class="time-option">18</div>
-                                <div class="time-option">19</div>
-                                <div class="time-option">20</div>
-                                <div class="time-option">21</div>
-                                <div class="time-option">22</div>
-                                <div class="time-option">23</div>
-                                <div class="time-option">24</div>
-                                <div class="time-option">25</div>
-                                <div class="time-option">26</div>
-                                <div class="time-option">27</div>
-                                <div class="time-option">28</div>
-                                <div class="time-option">29</div>
-                                <div class="time-option">30</div>
-                                <div class="time-option">31</div>
-                                <div class="time-option">32</div>
-                                <div class="time-option">33</div>
-                                <div class="time-option">34</div>
-                                <div class="time-option">35</div>
-                                <div class="time-option">36</div>
-                                <div class="time-option">37</div>
-                                <div class="time-option">38</div>
-                                <div class="time-option">39</div>
-                                <div class="time-option">40</div>
-                                <div class="time-option">41</div>
-                                <div class="time-option">42</div>
-                                <div class="time-option">43</div>
-                                <div class="time-option">44</div>
-                                <div class="time-option">45</div>
-                                <div class="time-option">46</div>
-                                <div class="time-option">47</div>
-                                <div class="time-option">48</div>
-                                <div class="time-option">49</div>
-                                <div class="time-option">50</div>
-                                <div class="time-option">51</div>
-                                <div class="time-option">52</div>
-                                <div class="time-option">53</div>
-                                <div class="time-option">54</div>
-                                <div class="time-option">55</div>
-                                <div class="time-option">56</div>
-                                <div class="time-option">57</div>
-                                <div class="time-option">58</div>
-                                <div class="time-option">59</div>
+                            <div class="progress-bar" style="display: none;">
+                                <div class="progress" style="width: 0%"></div>
                             </div>
+                            <span class="score">0/100</span>
                         </div>
                     </div>
                 </div>
-                <div class="input-group">
-                    <label for="plkTime">Plank (minimum 2:00)</label>
-                    <input type="text" id="plkTime" placeholder="mm:ss" readonly>
-                    <div class="time-picker">
-                        <div class="time-column minutes">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
-                            </div>
-                        </div>
-                        <div class="time-separator">:</div>
-                        <div class="time-column seconds">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
-                                <div class="time-option">11</div>
-                                <div class="time-option">12</div>
-                                <div class="time-option">13</div>
-                                <div class="time-option">14</div>
-                                <div class="time-option">15</div>
-                                <div class="time-option">16</div>
-                                <div class="time-option">17</div>
-                                <div class="time-option">18</div>
-                                <div class="time-option">19</div>
-                                <div class="time-option">20</div>
-                                <div class="time-option">21</div>
-                                <div class="time-option">22</div>
-                                <div class="time-option">23</div>
-                                <div class="time-option">24</div>
-                                <div class="time-option">25</div>
-                                <div class="time-option">26</div>
-                                <div class="time-option">27</div>
-                                <div class="time-option">28</div>
-                                <div class="time-option">29</div>
-                                <div class="time-option">30</div>
-                                <div class="time-option">31</div>
-                                <div class="time-option">32</div>
-                                <div class="time-option">33</div>
-                                <div class="time-option">34</div>
-                                <div class="time-option">35</div>
-                                <div class="time-option">36</div>
-                                <div class="time-option">37</div>
-                                <div class="time-option">38</div>
-                                <div class="time-option">39</div>
-                                <div class="time-option">40</div>
-                                <div class="time-option">41</div>
-                                <div class="time-option">42</div>
-                                <div class="time-option">43</div>
-                                <div class="time-option">44</div>
-                                <div class="time-option">45</div>
-                                <div class="time-option">46</div>
-                                <div class="time-option">47</div>
-                                <div class="time-option">48</div>
-                                <div class="time-option">49</div>
-                                <div class="time-option">50</div>
-                                <div class="time-option">51</div>
-                                <div class="time-option">52</div>
-                                <div class="time-option">53</div>
-                                <div class="time-option">54</div>
-                                <div class="time-option">55</div>
-                                <div class="time-option">56</div>
-                                <div class="time-option">57</div>
-                                <div class="time-option">58</div>
-                                <div class="time-option">59</div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="dashboard-actions">
+                    <button id="logWorkout" class="primary-button">Log Workout</button>
                 </div>
-                <div class="input-group">
-                    <label for="runTime">2-Mile Run (minimum 18:30)</label>
-                    <input type="text" id="runTime" placeholder="mm:ss" readonly>
-                    <div class="time-picker">
-                        <div class="time-column minutes">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
-                                <div class="time-option">11</div>
-                                <div class="time-option">12</div>
-                                <div class="time-option">13</div>
-                                <div class="time-option">14</div>
-                                <div class="time-option">15</div>
-                                <div class="time-option">16</div>
-                                <div class="time-option">17</div>
-                                <div class="time-option">18</div>
-                                <div class="time-option">19</div>
-                                <div class="time-option">20</div>
-                                <div class="time-option">21</div>
-                                <div class="time-option">22</div>
-                                <div class="time-option">23</div>
-                                <div class="time-option">24</div>
-                                <div class="time-option">25</div>
-                                <div class="time-option">26</div>
-                                <div class="time-option">27</div>
-                                <div class="time-option">28</div>
-                                <div class="time-option">29</div>
-                                <div class="time-option">30</div>
-                                <div class="time-option">31</div>
-                                <div class="time-option">32</div>
-                                <div class="time-option">33</div>
-                                <div class="time-option">34</div>
-                                <div class="time-option">35</div>
-                                <div class="time-option">36</div>
-                                <div class="time-option">37</div>
-                                <div class="time-option">38</div>
-                                <div class="time-option">39</div>
-                                <div class="time-option">40</div>
-                                <div class="time-option">41</div>
-                                <div class="time-option">42</div>
-                                <div class="time-option">43</div>
-                                <div class="time-option">44</div>
-                                <div class="time-option">45</div>
-                                <div class="time-option">46</div>
-                                <div class="time-option">47</div>
-                                <div class="time-option">48</div>
-                                <div class="time-option">49</div>
-                                <div class="time-option">50</div>
-                                <div class="time-option">51</div>
-                                <div class="time-option">52</div>
-                                <div class="time-option">53</div>
-                                <div class="time-option">54</div>
-                                <div class="time-option">55</div>
-                                <div class="time-option">56</div>
-                                <div class="time-option">57</div>
-                                <div class="time-option">58</div>
-                                <div class="time-option">59</div>
-                            </div>
-                        </div>
-                        <div class="time-separator">:</div>
-                        <div class="time-column seconds">
-                            <div class="time-scroll">
-                                <div class="time-option">00</div>
-                                <div class="time-option">01</div>
-                                <div class="time-option">02</div>
-                                <div class="time-option">03</div>
-                                <div class="time-option">04</div>
-                                <div class="time-option">05</div>
-                                <div class="time-option">06</div>
-                                <div class="time-option">07</div>
-                                <div class="time-option">08</div>
-                                <div class="time-option">09</div>
-                                <div class="time-option">10</div>
-                                <div class="time-option">11</div>
-                                <div class="time-option">12</div>
-                                <div class="time-option">13</div>
-                                <div class="time-option">14</div>
-                                <div class="time-option">15</div>
-                                <div class="time-option">16</div>
-                                <div class="time-option">17</div>
-                                <div class="time-option">18</div>
-                                <div class="time-option">19</div>
-                                <div class="time-option">20</div>
-                                <div class="time-option">21</div>
-                                <div class="time-option">22</div>
-                                <div class="time-option">23</div>
-                                <div class="time-option">24</div>
-                                <div class="time-option">25</div>
-                                <div class="time-option">26</div>
-                                <div class="time-option">27</div>
-                                <div class="time-option">28</div>
-                                <div class="time-option">29</div>
-                                <div class="time-option">30</div>
-                                <div class="time-option">31</div>
-                                <div class="time-option">32</div>
-                                <div class="time-option">33</div>
-                                <div class="time-option">34</div>
-                                <div class="time-option">35</div>
-                                <div class="time-option">36</div>
-                                <div class="time-option">37</div>
-                                <div class="time-option">38</div>
-                                <div class="time-option">39</div>
-                                <div class="time-option">40</div>
-                                <div class="time-option">41</div>
-                                <div class="time-option">42</div>
-                                <div class="time-option">43</div>
-                                <div class="time-option">44</div>
-                                <div class="time-option">45</div>
-                                <div class="time-option">46</div>
-                                <div class="time-option">47</div>
-                                <div class="time-option">48</div>
-                                <div class="time-option">49</div>
-                                <div class="time-option">50</div>
-                                <div class="time-option">51</div>
-                                <div class="time-option">52</div>
-                                <div class="time-option">53</div>
-                                <div class="time-option">54</div>
-                                <div class="time-option">55</div>
-                                <div class="time-option">56</div>
-                                <div class="time-option">57</div>
-                                <div class="time-option">58</div>
-                                <div class="time-option">59</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button id="logWorkout" class="primary-button">Log Workout</button>
             </section>
 
             <!-- Achievements -->

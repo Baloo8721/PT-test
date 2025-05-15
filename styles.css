@@ -45,26 +45,166 @@ header h1 {
     text-align: center;
 }
 
-.user-profile {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
+/* Section header with title */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.section-header h2 {
+    margin-bottom: 0;
+    flex: 1;
+}
+
+/* User controls styling */
+.user-controls {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
     gap: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
 }
 
-.user-profile select,
-.user-profile input {
-    padding: 6px 8px;
-    border: none;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.1);
+.standard-info {
+    text-align: center;
+    margin-top: 5px;
+    padding-top: 5px;
+    border-top: 1px solid #eee;
+}
+
+#standardInfoText {
+    font-size: 0.8em;
+    color: var(--navy);
+    font-weight: 500;
+}
+
+/* Toggle switches */
+.toggle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.toggle-label {
+    font-size: 0.8em;
+    color: var(--navy);
+    font-weight: 500;
+}
+
+.toggle-switch {
+    position: relative;
+    display: flex;
+    background: #f0f0f0;
+    border-radius: 20px;
+    height: 30px;
+    min-width: 80px;
+    padding: 2px;
+    cursor: pointer;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-option {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    font-size: 0.85em;
+    font-weight: 500;
+    padding: 0 8px;
+    color: var(--navy);
+    transition: color 0.3s ease;
+}
+
+.toggle-option.active {
     color: white;
-    font-size: 0.9em;
-    width: 100%;
 }
 
-.user-profile input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9em;
+.toggle-slider {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    height: calc(100% - 4px);
+    width: calc(50% - 2px);
+    background: var(--navy);
+    border-radius: 18px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch.right .toggle-slider {
+    transform: translateX(100%);
+}
+
+/* Gender toggle specific */
+#genderToggle .toggle-option {
+    font-size: 1.2em;
+}
+
+/* Weight input */
+.weight-input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.weight-input input {
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.85em;
+    width: 100%;
+    text-align: center;
+    background: #f0f0f0;
+    transition: all 0.3s ease;
+}
+
+.weight-input input:focus {
+    border-color: var(--navy);
+    background: white;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 36, 99, 0.2);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+    
+    .user-controls {
+        position: relative;
+        top: 0;
+        right: 0;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+        margin-bottom: 15px;
+        background: none;
+        box-shadow: none;
+        padding: 0;
+    }
+    
+    .toggle-container, .weight-input {
+        flex: 1;
+    }
+    
+    .weight-input input {
+        max-width: 100px;
+        margin: 0 auto;
+    }
 }
 
 /* Dashboard Styles */
@@ -72,9 +212,37 @@ header h1 {
     background: white;
     padding: 15px;
     border-radius: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
+    position: relative;
+}
+
+.reset-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 6px 12px;
+    background-color: var(--navy);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.85em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.reset-button:hover {
+    background-color: #1a3b7d;
+}
+
+/* Dashboard actions styling */
+.dashboard-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
 }
 
 .score-display {
@@ -134,12 +302,44 @@ header h1 {
     width: 100%;
 }
 
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.input-display {
+    width: 100%;
+    text-align: center;
+    padding: 4px 0;
+}
+
+.card-input {
+    width: 90%;
+    padding: 6px 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9em;
+    text-align: center;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+.card-input:focus {
+    border-color: var(--navy);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 36, 99, 0.1);
+    background: white;
+}
+
 .progress-bar {
     background: #ddd;
     height: 8px;
     border-radius: 4px;
     margin: 5px 0;
     overflow: hidden;
+    width: 100%;
 }
 
 .progress {
@@ -206,6 +406,7 @@ header h1 {
     padding: 12px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 30px;
 }
 
 .event-info h2 {
@@ -368,19 +569,111 @@ header h1 {
     }
 }
 
+/* Achievement Section Styles */
+.achievements {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.achievements h2 {
+    color: var(--navy);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.achievement-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 10px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Achievement Badge Styles */
 .achievement-badge {
-    background: var(--gold);
+    display: flex;
+    align-items: center;
+    background: linear-gradient(135deg, var(--gold), #ffd700);
     color: var(--navy);
-    padding: 10px;
-    border-radius: 5px;
-    text-align: center;
+    padding: 10px 12px;
+    border-radius: 8px;
+    text-align: left;
+    font-weight: 500;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: slideIn 0.5s ease;
+    height: 100%;
+}
+
+.achievement-badge:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .achievement-badge.locked {
-    background: #ddd;
-    color: #666;
+    background: linear-gradient(135deg, #e0e0e0, #f5f5f5);
+    color: #888;
+}
+
+.achievement-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.achievement-content {
+    flex: 1;
+}
+
+.achievement-name {
+    font-weight: 600;
+    margin-bottom: 2px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+}
+
+.achievement-description {
+    font-size: 10px;
+    opacity: 0.8;
+}
+
+.achievement-status {
+    margin-left: 8px;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Animation for achievements */
+@keyframes subtle-glow {
+    0% { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3); }
+    100% { box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+}
+
+@keyframes achievement-unlocked {
+    0% { transform: scale(1); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+    10% { transform: scale(1.1); box-shadow: 0 8px 20px rgba(255, 215, 0, 0.5); }
+    20% { transform: scale(1); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+    30% { transform: scale(1.05); box-shadow: 0 6px 15px rgba(255, 215, 0, 0.4); }
+    40% { transform: scale(1); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+    100% { transform: scale(1); box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); }
+}
+
+.achievement-badge:not(.locked) {
+    animation: subtle-glow 3s ease-in-out infinite;
+}
+
+.achievement-badge.just-unlocked {
+    animation: achievement-unlocked 3s ease-in-out;
 }
 
 /* Status Colors */
@@ -461,6 +754,49 @@ header h1 {
     }
 }
 
+.suggestions-container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    margin-top: 4px;
+    /* Prevent page scroll when scrolling within container */
+    overscroll-behavior: contain;
+}
+
+/* Dashboard card suggestion popup positioning */
+.event-card .suggestions-container {
+    top: 100% !important;
+    bottom: auto !important;
+    margin-top: 4px;
+    margin-bottom: 0;
+    max-height: 250px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--navy) #f0f0f0;
+}
+
+/* Customize scrollbar for better visibility */
+.suggestions-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.suggestions-container::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.suggestions-container::-webkit-scrollbar-thumb {
+    background-color: var(--navy);
+    border-radius: 4px;
+}
+
 .suggestions-popup {
     position: absolute;
     top: 100%;
@@ -487,9 +823,29 @@ header h1 {
     font-size: 0.9em;
     color: var(--dark-gray);
     transition: background-color 0.2s ease;
+    border-bottom: 1px solid #eee;
+}
+
+.suggestion-item:hover {
+    filter: brightness(0.95);
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+
+/* Make card suggestions more visible */
+.card-suggestion .suggestion-item {
+    padding: 10px 12px;
+    font-weight: 500;
 }
 
 /* Tier-based background colors for push-up suggestions */
+/* White background for 1-9 reps */
+.suggestion-item[data-reps="1"],
+.suggestion-item[data-reps="2"],
+.suggestion-item[data-reps="3"],
+.suggestion-item[data-reps="4"],
 .suggestion-item[data-reps="5"],
 .suggestion-item[data-reps="6"],
 .suggestion-item[data-reps="7"],
@@ -498,15 +854,16 @@ header h1 {
     background-color: white;
 }
 
+/* Light green for 10-14 reps (General MOS minimum) */
 .suggestion-item[data-reps="10"],
 .suggestion-item[data-reps="11"],
 .suggestion-item[data-reps="12"],
 .suggestion-item[data-reps="13"],
 .suggestion-item[data-reps="14"] {
     background-color: rgba(40, 167, 69, 0.1);
-    /* Light green for General MOS minimum */
 }
 
+/* Light navy for 15-39 reps (Combat MOS minimum) */
 .suggestion-item[data-reps="15"],
 .suggestion-item[data-reps="16"],
 .suggestion-item[data-reps="17"],
@@ -533,9 +890,9 @@ header h1 {
 .suggestion-item[data-reps="38"],
 .suggestion-item[data-reps="39"] {
     background-color: rgba(10, 36, 99, 0.1);
-    /* Light navy for Combat MOS minimum */
 }
 
+/* Light yellow for 40-59 reps (approaching maximum) */
 .suggestion-item[data-reps="40"],
 .suggestion-item[data-reps="41"],
 .suggestion-item[data-reps="42"],
@@ -557,10 +914,14 @@ header h1 {
 .suggestion-item[data-reps="58"],
 .suggestion-item[data-reps="59"] {
     background-color: rgba(255, 193, 7, 0.1);
-    /* Light yellow for Female maximum */
 }
 
-.suggestion-item[data-reps="60"],
+/* Light red for 60 reps (Male Maximum) */
+.suggestion-item[data-reps="60"] {
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Purple for 61-100 reps (exceeding maximum) */
 .suggestion-item[data-reps="61"],
 .suggestion-item[data-reps="62"],
 .suggestion-item[data-reps="63"],
@@ -601,8 +962,7 @@ header h1 {
 .suggestion-item[data-reps="98"],
 .suggestion-item[data-reps="99"],
 .suggestion-item[data-reps="100"] {
-    background-color: rgba(220, 53, 69, 0.1);
-    /* Light red for Male maximum */
+    background-color: rgba(128, 0, 128, 0.1);
 }
 
 .suggestion-item:hover {
@@ -686,13 +1046,30 @@ header h1 {
     display: none;
     position: absolute;
     background: white;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    padding: 10px;
     z-index: 1000;
-    width: 200px;
+    width: 120px;
+    height: 150px;
+    top: 100%;
+    left: 0;
     margin-top: 5px;
+}
+
+/* Dashboard card time picker positioning */
+.event-card .input-display {
+    position: relative;
+}
+
+.event-card .time-picker {
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    right: 5%;
+    width: 90% !important;
+    margin: 5px auto 0;
+    z-index: 1001;
 }
 
 .time-picker.active {
