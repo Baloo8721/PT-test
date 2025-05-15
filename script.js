@@ -223,34 +223,43 @@ function updateAchievements(data) {
 
 // Add popup suggestions functionality
 function createSuggestions(input, options) {
-    const suggestionsContainer = document.createElement('div');
-    suggestionsContainer.className = 'suggestions-container';
-    input.parentNode.appendChild(suggestionsContainer);
-
-    options.forEach(option => {
-        const item = document.createElement('div');
-        item.className = 'suggestion-item';
-        item.textContent = option;
-
-        // Extract the number of reps from the option text
-        const repsMatch = option.match(/^(\d+)\s+reps/);
-        if (repsMatch) {
-            item.setAttribute('data-reps', repsMatch[1]);
-        }
-
-        item.addEventListener('click', () => {
-            input.value = option.split(' ')[0];
-            suggestionsContainer.remove();
-            input.dispatchEvent(new Event('input'));
+    // Create suggestions only when the input is clicked
+    input.addEventListener('click', () => {
+        // Remove any existing suggestions containers first
+        document.querySelectorAll('.suggestions-container').forEach(container => {
+            container.remove();
         });
-        suggestionsContainer.appendChild(item);
-    });
+        
+        // Create new suggestions container
+        const suggestionsContainer = document.createElement('div');
+        suggestionsContainer.className = 'suggestions-container';
+        input.parentNode.appendChild(suggestionsContainer);
 
-    // Close suggestions when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!input.contains(e.target) && !suggestionsContainer.contains(e.target)) {
-            suggestionsContainer.remove();
-        }
+        options.forEach(option => {
+            const item = document.createElement('div');
+            item.className = 'suggestion-item';
+            item.textContent = option;
+
+            // Extract the number of reps from the option text
+            const repsMatch = option.match(/^(\d+)\s+reps/);
+            if (repsMatch) {
+                item.setAttribute('data-reps', repsMatch[1]);
+            }
+
+            item.addEventListener('click', () => {
+                input.value = option.split(' ')[0];
+                suggestionsContainer.remove();
+                input.dispatchEvent(new Event('input'));
+            });
+            suggestionsContainer.appendChild(item);
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!input.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                suggestionsContainer.remove();
+            }
+        });
     });
 }
 
